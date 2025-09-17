@@ -1,0 +1,458 @@
+@import 'flexbox-mixin';
+
+// Ultra-Modern Design System - Cool & Sleek
+:root {
+  // Cyberpunk-inspired Primary Palette
+  --primary-50: #f0f9ff;
+  --primary-100: #e0f2fe;
+  --primary-200: #bae6fd;
+  --primary-300: #7dd3fc;
+  --primary-400: #38bdf8;
+  --primary-500: #0ea5e9;
+  --primary-600: #0284c7;
+  --primary-700: #0369a1;
+  --primary-800: #075985;
+  --primary-900: #0c4a6e;
+  
+  // Sleek Dark Palette
+  --dark-0: #000000;
+  --dark-50: #0a0a0a;
+  --dark-100: #1a1a1a;
+  --dark-200: #2a2a2a;
+  --dark-300: #3a3a3a;
+  --dark-400: #4a4a4a;
+  --dark-500: #5a5a5a;
+  --dark-600: #6a6a6a;
+  --dark-700: #7a7a7a;
+  --dark-800: #8a8a8a;
+  --dark-900: #9a9a9a;
+  
+  // Neon Accent Colors
+  --neon-cyan: #00ffff;
+  --neon-pink: #ff00ff;
+  --neon-green: #00ff00;
+  --neon-purple: #8b5cf6;
+  --neon-orange: #ff6b35;
+  --neon-blue: #0066ff;
+  
+  // Glass Colors
+  --glass-white: rgba(255, 255, 255, 0.1);
+  --glass-black: rgba(0, 0, 0, 0.1);
+  --glass-primary: rgba(14, 165, 233, 0.1);
+  --glass-neon: rgba(0, 255, 255, 0.1);
+  
+  // Spacing Scale
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  
+  // Border Radius
+  --radius-1: 0.125rem;
+  --radius-2: 0.25rem;
+  --radius-3: 0.375rem;
+  --radius-4: 0.5rem;
+  --radius-6: 0.75rem;
+  --radius-8: 1rem;
+  --radius-12: 1.5rem;
+  --radius-16: 2rem;
+  --radius-20: 2.5rem;
+  --radius-full: 9999px;
+  
+  // Typography
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  // Advanced Shadows
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-neon: 0 0 20px rgba(0, 255, 255, 0.5);
+  --shadow-glow: 0 0 30px rgba(14, 165, 233, 0.3);
+  
+  // Transitions
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  // Z-index scale
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}
+
+// Dark mode variables
+[data-theme="dark"] {
+  --dark-0: #ffffff;
+  --dark-50: #f5f5f5;
+  --dark-100: #e5e5e5;
+  --dark-200: #d5d5d5;
+  --dark-300: #c5c5c5;
+  --dark-400: #b5b5b5;
+  --dark-500: #a5a5a5;
+  --dark-600: #959595;
+  --dark-700: #858585;
+  --dark-800: #757575;
+  --dark-900: #656565;
+}
+
+// Base styles
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--dark-900);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f172a 100%);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+// Animated background
+html::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 255, 0, 0.05) 0%, transparent 50%);
+  animation: backgroundShift 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes backgroundShift {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+#client_root {
+  height: 100%;
+  position: relative;
+}
+
+// Main app container with ultra-modern glassmorphism
+.app-container {
+  @include flexbox();
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-20);
+  margin: var(--space-4);
+  box-shadow: 
+    var(--shadow-2xl),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 50px rgba(0, 255, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      var(--neon-cyan), 
+      var(--neon-pink), 
+      var(--neon-cyan), 
+      transparent
+    );
+    animation: neonFlow 3s linear infinite;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+      rgba(0, 255, 255, 0.05) 0%, 
+      rgba(255, 0, 255, 0.05) 50%, 
+      rgba(0, 255, 0, 0.05) 100%
+    );
+    pointer-events: none;
+    animation: shimmer 4s ease-in-out infinite;
+  }
+}
+
+@keyframes neonFlow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+// Sidebar area with cyberpunk styling
+.navigate-sidebar {
+  @include flex(0 0 320px);
+  background: linear-gradient(180deg, 
+    rgba(0, 0, 0, 0.9) 0%, 
+    rgba(10, 10, 10, 0.95) 100%
+  );
+  border-right: 1px solid rgba(0, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 30% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    animation: pulse 4s ease-in-out infinite;
+  }
+}
+
+// Main chat area
+.main-area {
+  @include flex(1);
+  background: rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.chat-container {
+  @include flexbox();
+  flex-direction: column;
+  height: 100%;
+  background: transparent;
+}
+
+// Modern focus styles with neon glow
+*:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--neon-cyan), 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+// Custom scrollbars with neon styling
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--neon-cyan) 0%, var(--neon-pink) 100%);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--neon-pink) 0%, var(--neon-cyan) 100%);
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+}
+
+// Advanced animations
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px) scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+@keyframes slideInLeft {
+  from { 
+    opacity: 0; 
+    transform: translateX(-30px) scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0) scale(1); 
+  }
+}
+
+@keyframes slideInRight {
+  from { 
+    opacity: 0; 
+    transform: translateX(30px) scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0) scale(1); 
+  }
+}
+
+@keyframes neonPulse {
+  0%, 100% { 
+    opacity: 1; 
+    text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 15px var(--neon-cyan);
+  }
+  50% { 
+    opacity: 0.8; 
+    text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(255, 0, 255, 0.5); }
+}
+
+// Utility classes
+.animate-fade-in-up { 
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+.animate-slide-in-left { 
+  animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+.animate-slide-in-right { 
+  animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+.animate-neon-pulse { 
+  animation: neonPulse 2s ease-in-out infinite; 
+}
+.animate-float { 
+  animation: float 3s ease-in-out infinite; 
+}
+.animate-glow { 
+  animation: glow 2s ease-in-out infinite; 
+}
+
+// Glassmorphism utility
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+// Neon text utility
+.neon-text {
+  color: var(--neon-cyan);
+  text-shadow: 
+    0 0 5px var(--neon-cyan),
+    0 0 10px var(--neon-cyan),
+    0 0 15px var(--neon-cyan),
+    0 0 20px var(--neon-cyan);
+}
+
+// Gradient text utility
+.gradient-text {
+  background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-pink) 50%, var(--neon-green) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: neonPulse 3s ease-in-out infinite;
+}
+
+// Responsive design
+@media (max-width: 1024px) {
+  .app-container {
+    margin: var(--space-2);
+    border-radius: var(--radius-16);
+  }
+  
+  .navigate-sidebar {
+    flex: 0 0 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    margin: 0;
+    border-radius: 0;
+    height: 100vh;
+  }
+  
+  .navigate-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    z-index: var(--z-modal);
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+    
+    &.open {
+      transform: translateX(0);
+    }
+  }
+  
+  .main-area {
+    width: 100%;
+  }
+}
+
+@import 'bootstrap-modules';
+@import 'components/navigate-sidebar';
+@import 'components/message-input';
+@import 'components/message-list';
+@import 'components/message-item';
+@import 'components/sidebar-setting';
+@import 'components/suggestion-panel';

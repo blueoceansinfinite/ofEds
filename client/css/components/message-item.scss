@@ -1,0 +1,746 @@
+@import 'flexbox-mixin';
+
+// Brand New Design System - Fresh & Modern
+:root {
+  // Vibrant Primary Palette
+  --primary-50: #f0f4ff;
+  --primary-100: #e0e7ff;
+  --primary-200: #c7d2fe;
+  --primary-300: #a5b4fc;
+  --primary-400: #818cf8;
+  --primary-500: #6366f1;
+  --primary-600: #4f46e5;
+  --primary-700: #4338ca;
+  --primary-800: #3730a3;
+  --primary-900: #312e81;
+  
+  // Modern Neutral Palette
+  --neutral-0: #ffffff;
+  --neutral-50: #fafafa;
+  --neutral-100: #f4f4f5;
+  --neutral-200: #e4e4e7;
+  --neutral-300: #d4d4d8;
+  --neutral-400: #a1a1aa;
+  --neutral-500: #71717a;
+  --neutral-600: #52525b;
+  --neutral-700: #3f3f46;
+  --neutral-800: #27272a;
+  --neutral-900: #18181b;
+  
+  // Accent Colors
+  --accent-green: #10b981;
+  --accent-emerald: #059669;
+  --accent-orange: #f59e0b;
+  --accent-red: #ef4444;
+  --accent-purple: #8b5cf6;
+  --accent-pink: #ec4899;
+  
+  // Spacing Scale
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  
+  // Border Radius
+  --radius-1: 0.125rem;
+  --radius-2: 0.25rem;
+  --radius-3: 0.375rem;
+  --radius-4: 0.5rem;
+  --radius-6: 0.75rem;
+  --radius-8: 1rem;
+  --radius-12: 1.5rem;
+  --radius-full: 9999px;
+  
+  // Typography
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  // Shadows
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  
+  // Transitions
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+  
+  // Z-index scale
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}
+
+// Dark mode variables
+[data-theme="dark"] {
+  --neutral-0: #0a0a0a;
+  --neutral-50: #171717;
+  --neutral-100: #262626;
+  --neutral-200: #404040;
+  --neutral-300: #525252;
+  --neutral-400: #737373;
+  --neutral-500: #a3a3a3;
+  --neutral-600: #d4d4d8;
+  --neutral-700: #e4e4e7;
+  --neutral-800: #f4f4f5;
+  --neutral-900: #fafafa;
+}
+
+// Base styles
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--neutral-900);
+  background: linear-gradient(135deg, var(--neutral-50) 0%, var(--primary-50) 100%);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#client_root {
+  height: 100%;
+  position: relative;
+}
+
+// Main app container with glassmorphism effect
+.app-container {
+  @include flexbox();
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-12);
+  margin: var(--space-4);
+  box-shadow: var(--shadow-2xl);
+  overflow: hidden;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-200), transparent);
+  }
+}
+
+// Sidebar area
+.navigate-sidebar {
+  @include flex(0 0 320px);
+  background: linear-gradient(180deg, var(--neutral-800) 0%, var(--neutral-900) 100%);
+  border-right: 1px solid var(--neutral-200);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+    pointer-events: none;
+  }
+}
+
+// Main chat area
+.main-area {
+  @include flex(1);
+  background: var(--neutral-0);
+  position: relative;
+  overflow: hidden;
+}
+
+.chat-container {
+  @include flexbox();
+  flex-direction: column;
+  height: 100%;
+  background: var(--neutral-0);
+}
+
+// Modern focus styles
+*:focus {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+// Custom scrollbars
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neutral-300);
+  border-radius: var(--radius-full);
+  transition: background var(--transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neutral-400);
+}
+
+// Animations
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); }
+  40%, 43% { transform: translate3d(0, -8px, 0); }
+  70% { transform: translate3d(0, -4px, 0); }
+  90% { transform: translate3d(0, -2px, 0); }
+}
+
+// Utility classes
+.animate-fade-in { animation: fadeIn 0.5s ease-out; }
+.animate-slide-in-left { animation: slideInLeft 0.5s ease-out; }
+.animate-slide-in-right { animation: slideInRight 0.5s ease-out; }
+.animate-pulse { animation: pulse 2s infinite; }
+.animate-bounce { animation: bounce 1s infinite; }
+
+// Glassmorphism utility
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// Gradient text utility
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Responsive design
+@media (max-width: 1024px) {
+  .app-container {
+    margin: var(--space-2);
+    border-radius: var(--radius-8);
+  }
+  
+  .navigate-sidebar {
+    flex: 0 0 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    margin: 0;
+    border-radius: 0;
+    height: 100vh;
+  }
+  
+  .navigate-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    z-index: var(--z-modal);
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+    
+    &.open {
+      transform: translateX(0);
+    }
+  }
+  
+  .main-area {
+    width: 100%;
+  }
+}
+
+@import 'bootstrap-modules';
+@import 'components/navigate-sidebar';
+@import 'components/message-input';
+@import 'components/message-list';
+@import 'components/message-item';
+@import 'components/sidebar-setting';
+@import 'components/suggestion-panel';
+
+.message-list {
+  @include flex(1);
+  overflow-y: auto;
+  padding: var(--space-8);
+  background: linear-gradient(180deg, 
+    rgba(0, 0, 0, 0.3) 0%, 
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  position: relative;
+  
+  // Ultra-cool pattern overlay
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(0, 255, 0, 0.03) 0%, transparent 50%);
+    opacity: 0.6;
+    pointer-events: none;
+    animation: shimmer 8s ease-in-out infinite;
+  }
+  
+  // Custom scrollbar with neon styling
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-full);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--neon-cyan) 0%, var(--neon-pink) 100%);
+    border-radius: var(--radius-full);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--neon-pink) 0%, var(--neon-cyan) 100%);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+  }
+  
+  // Empty state with cyberpunk styling
+  &.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--neon-cyan);
+    
+    .empty-icon {
+      font-size: var(--font-size-5xl);
+      margin-bottom: var(--space-6);
+      opacity: 0.7;
+      animation: neonPulse 3s ease-in-out infinite;
+      text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+    
+    .empty-text {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--neon-pink);
+      text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+    }
+  }
+}
+
+// Message container with cool animations
+.message-container {
+  margin-bottom: var(--space-8);
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Ultra-cool unread divider
+.unread-divider {
+  display: flex;
+  align-items: center;
+  margin: var(--space-12) 0;
+  
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      var(--neon-cyan), 
+      var(--neon-pink), 
+      transparent
+    );
+    animation: neonFlow 3s linear infinite;
+  }
+  
+  .divider-text {
+    padding: var(--space-3) var(--space-6);
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--neon-cyan);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    box-shadow: 
+      0 0 20px rgba(0, 255, 255, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
+.message-item {
+  @include flexbox();
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+  padding: var(--space-5);
+  border-radius: var(--radius-16);
+  transition: all var(--transition-normal);
+  position: relative;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid transparent;
+  backdrop-filter: blur(10px);
+  
+  &:hover {
+    background: rgba(0, 255, 255, 0.05);
+    border-color: rgba(0, 255, 255, 0.2);
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 
+      0 10px 30px rgba(0, 0, 0, 0.3),
+      0 0 20px rgba(0, 255, 255, 0.1);
+  }
+  
+  // Ultra-cool user avatar
+  .user-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-pink) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-lg);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 
+      0 0 20px rgba(0, 255, 255, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+    position: relative;
+    animation: glow 3s ease-in-out infinite;
+    
+    // Online indicator with neon glow
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 16px;
+      height: 16px;
+      background: var(--neon-green);
+      border: 3px solid black;
+      border-radius: var(--radius-full);
+      box-shadow: 
+        0 0 10px rgba(0, 255, 0, 0.8),
+        0 0 20px rgba(0, 255, 0, 0.4);
+      animation: neonPulse 2s infinite;
+    }
+  }
+  
+  // Message content with cyberpunk styling
+  .message-main {
+    @include flex(1);
+    @include flexbox();
+    flex-direction: column;
+    gap: var(--space-3);
+    min-width: 0;
+  }
+  
+  // Message header with neon accents
+  .message-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+  
+  .message-username {
+    font-weight: var(--font-weight-bold);
+    color: var(--neon-cyan);
+    font-size: var(--font-size-base);
+    margin: 0;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+  
+  .message-time {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
+  }
+  
+  // Message content with modern styling
+  .message-content {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: var(--line-height-relaxed);
+    font-size: var(--font-size-base);
+    word-wrap: break-word;
+    margin: 0;
+    padding: var(--space-4);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-8);
+    border-left: 3px solid var(--neon-cyan);
+    backdrop-filter: blur(5px);
+    
+    // Links with neon styling
+    a {
+      color: var(--neon-pink);
+      text-decoration: none;
+      text-shadow: 0 0 5px rgba(255, 0, 255, 0.3);
+      
+      &:hover {
+        text-decoration: underline;
+        text-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+      }
+    }
+    
+    // Code blocks with cyberpunk styling
+    code {
+      background: rgba(0, 0, 0, 0.6);
+      color: var(--neon-green);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-4);
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: var(--font-size-sm);
+      border: 1px solid rgba(0, 255, 0, 0.2);
+      text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+    }
+    
+    // Mentions with neon styling
+    .mention {
+      background: rgba(0, 255, 255, 0.2);
+      color: var(--neon-cyan);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-4);
+      font-weight: var(--font-weight-semibold);
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+  }
+  
+  // Message actions with hover effects
+  .message-actions {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+  }
+  
+  &:hover .message-actions {
+    opacity: 1;
+  }
+  
+  .message-action {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    color: var(--neon-cyan);
+    cursor: pointer;
+    padding: var(--space-3);
+    border-radius: var(--radius-6);
+    transition: all var(--transition-fast);
+    font-size: var(--font-size-sm);
+    backdrop-filter: blur(5px);
+    
+    &:hover {
+      background: rgba(0, 255, 255, 0.1);
+      border-color: var(--neon-cyan);
+      color: white;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+  }
+  
+  // Message reactions with neon styling
+  .message-reactions {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+    flex-wrap: wrap;
+  }
+  
+  .reaction {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    backdrop-filter: blur(5px);
+    
+    &:hover {
+      background: rgba(0, 255, 255, 0.1);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    
+    &.active {
+      background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-pink) 100%);
+      color: black;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    }
+  }
+  
+  // Thread indicator with cyberpunk styling
+  .thread-indicator {
+    margin-top: var(--space-4);
+    padding: var(--space-4);
+    background: rgba(0, 0, 0, 0.4);
+    border-left: 3px solid var(--neon-pink);
+    border-radius: var(--radius-6);
+    font-size: var(--font-size-sm);
+    color: var(--neon-pink);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    backdrop-filter: blur(5px);
+    
+    &:hover {
+      background: rgba(255, 0, 255, 0.1);
+      color: white;
+      box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+    }
+  }
+  
+  // Unread message styling with neon effects
+  &.-unread {
+    background: rgba(0, 255, 255, 0.1);
+    border-left: 4px solid var(--neon-cyan);
+    box-shadow: 
+      0 0 20px rgba(0, 255, 255, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
+    .message-username {
+      color: var(--neon-cyan);
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+    }
+  }
+  
+  // Own message styling with gradient
+  &.-own {
+    flex-direction: row-reverse;
+    
+    .message-main {
+      align-items: flex-end;
+    }
+    
+    .message-content {
+      background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-pink) 100%);
+      color: black;
+      padding: var(--space-4) var(--space-5);
+      border-radius: var(--radius-12);
+      border-bottom-right-radius: var(--radius-4);
+      border-left: none;
+      border-right: 3px solid rgba(0, 0, 0, 0.2);
+      box-shadow: 
+        0 5px 20px rgba(0, 255, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    
+    .user-avatar {
+      background: linear-gradient(135deg, var(--neon-green) 0%, var(--neon-cyan) 100%);
+    }
+  }
+}
+
+// Ultra-cool typing indicator
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  color: var(--neon-cyan);
+  font-size: var(--font-size-base);
+  font-style: italic;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-12);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  
+  .typing-dots {
+    display: flex;
+    gap: var(--space-2);
+    
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--neon-cyan);
+      border-radius: var(--radius-full);
+      animation: neonPulse 1.5s infinite;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+      
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      
+      &:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+    }
+  }
+}
